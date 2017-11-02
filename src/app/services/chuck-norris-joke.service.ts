@@ -14,9 +14,7 @@ export class ChuckNorrisJokeService {
   constructor(private _httpClient: HttpClient) { }
 
   getJokes(intervalTime: number): Observable<{}> {
-    return Observable.interval(intervalTime).flatMap(() => {
-      return this._httpClient.get(this.url).pluck('value');
-    });
+    return this._httpClient.get(this.url).delay(intervalTime).repeat().pluck('value').startWith('Jokes are comming....');
   }
 
 }
